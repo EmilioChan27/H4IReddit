@@ -15,6 +15,11 @@ const App = () => {
       .then(data => setPosts(data.posts))
   }
 
+  React.useEffect(() => {
+    // get posts on startup
+    getPosts()
+  }, [])
+
   const addUpVote = () => {
     setNumUpVotes(upVotes+1);
   }
@@ -30,15 +35,6 @@ const App = () => {
   const rmDownVote = () => {
     setNumDownVotes(downVotes-1);
   }
-
- 
-
-  React.useEffect(() => {
-    // get posts on startup
-    getPosts()
-  }, [])
-
-  
 
   const getPostsByDate = selectedDateRange => {
     // get the current date to send to the server (for accuracy)
