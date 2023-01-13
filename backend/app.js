@@ -18,7 +18,7 @@ const expressSwagger = swaggerUiGenerator(app)
 // initiate DB Connection
 mongoose
   .connect(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
+    useNewUrlParser: true, useUnifiedTopology:  true
   })
   .then(_ => console.log('Successfully Connected to MongoDB'))
   .catch(err => console.log('Error connecting to MongoDB', err))

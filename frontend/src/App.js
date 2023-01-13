@@ -6,6 +6,8 @@ import SortBy from './components/SelectDateRange'
 
 const App = () => {
   const [posts, setPosts] = React.useState([])
+  const [upVotes, setNumUpVotes] = React.useState(0);
+  const [downVotes, setNumDownVotes] = React.useState(0);
   const headers = { 'Content-Type': 'application/json' }
   const getPosts = () => {
     fetch('/api/posts')
@@ -13,10 +15,30 @@ const App = () => {
       .then(data => setPosts(data.posts))
   }
 
+  const addUpVote = () => {
+    setNumUpVotes(upVotes+1);
+  }
+
+  const rmUpVote = () => {
+    setNumUpVotes(upVotes-1);
+  }
+
+  const addDownVote = () => {
+    setNumDownVotes(downVotes +1);
+  }
+  
+  const rmDownVote = () => {
+    setNumDownVotes(downVotes-1);
+  }
+
+ 
+
   React.useEffect(() => {
     // get posts on startup
     getPosts()
   }, [])
+
+  
 
   const getPostsByDate = selectedDateRange => {
     // get the current date to send to the server (for accuracy)
@@ -103,6 +125,8 @@ const App = () => {
   return (
     <>
       <h1>Bits of Good Bootcamp -- Reddit</h1>
+      <h2>Number of upVotes = {upVotes}</h2>
+      <h2>Number of downVotes = {downVotes}</h2>
       <AddPost onSubmit={createPost} />
       <SortBy onSelect={getPostsByDate} />
       {posts.map(curr => (
@@ -115,6 +139,10 @@ const App = () => {
           onCommentDelete={deleteComment}
           onCommentEdit={editComment}
           onSubComment={createSubComment}
+          onAddUpVote={addUpVote}
+          onRmUpVote={rmUpVote}
+          onAddDownVote={addDownVote}
+          onRmDownVote={rmDownVote}
         />
       ))}
     </>
