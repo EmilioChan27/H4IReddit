@@ -23,6 +23,10 @@ const postSchema = mongoose.Schema(
       type: Number,
       default: 0
     },
+    createdAt: {
+      type: String,
+      default: new Date().toISOString()
+    },
     comments: [
       {
         type: mongoose.Schema.Types.ObjectId,
